@@ -39,3 +39,14 @@ export const LenderPosition = onchainTable("lender_position", (t) => ({
   currentBalance: t.bigint().notNull(),
   updatedAt: t.bigint().notNull(),
 }));
+
+export const DepositWithdrawEvent = onchainTable("deposit_withdraw_event", (t) => ({
+  id: t.text().primaryKey(), // txHash-logIndex
+  user: t.hex().notNull(),
+  type: t.text().notNull(), // "deposit" or "withdraw"
+  assets: t.bigint().notNull(),
+  shares: t.bigint().notNull(),
+  timestamp: t.bigint().notNull(),
+  txHash: t.hex().notNull(),
+  blockNumber: t.bigint().notNull(),
+}));
