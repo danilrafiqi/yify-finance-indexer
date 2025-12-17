@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "ponder dev",
     "start": "ponder start",
+    "serve": "ponder serve",
     "db": "ponder db",
+    "build": "ponder codegen",
     "codegen": "ponder codegen",
     "lint": "eslint .",
     "typecheck": "tsc"
