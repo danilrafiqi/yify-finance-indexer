@@ -34,6 +34,8 @@ function getContractConfig(chainId: number, contractName: string, envAddress: st
   return { address, startBlock };
 }
 
+const isDev = process.env.NODE_ENV === "development";
+
 export default createConfig({
   database: process.env.DATABASE_URL
     ? {
@@ -45,10 +47,14 @@ export default createConfig({
       directory: "./.ponder.db",
     },
   chains: {
-    anvil: {
-      id: 31337,
-      rpc: "http://127.0.0.1:8545",
-    },
+    ...(isDev
+      ? {
+        anvil: {
+          id: 31337,
+          rpc: "http://127.0.0.1:8545",
+        },
+      }
+      : {}),
     lisk: {
       id: 4202,
       rpc: process.env.LISK_SEPOLIA_RPC_URL ?? "https://rpc.sepolia-api.lisk.com",
@@ -70,7 +76,7 @@ export default createConfig({
     YIFYLoanManagerV2: {
       abi: YIFYLoanManagerV2Abi,
       chain: {
-        anvil: getContractConfig(31337, "loanManager", process.env.LOAN_MANAGER_ADDRESS, 0),
+        ...(isDev ? { anvil: getContractConfig(31337, "loanManager", process.env.LOAN_MANAGER_ADDRESS, 0) } : {}),
         lisk: getContractConfig(4202, "loanManager", process.env.LOAN_MANAGER_ADDRESS_LISK, 0),
         base: getContractConfig(84532, "loanManager", process.env.LOAN_MANAGER_ADDRESS_BASE, 35102094),
         optimism: getContractConfig(11155420, "loanManager", process.env.LOAN_MANAGER_ADDRESS_OP, 0),
@@ -80,7 +86,7 @@ export default createConfig({
     YIFYYieldDistributorV2: {
       abi: YIFYYieldDistributorV2Abi,
       chain: {
-        anvil: getContractConfig(31337, "yieldDistributor", process.env.YIELD_DISTRIBUTOR_ADDRESS, 0),
+        ...(isDev ? { anvil: getContractConfig(31337, "yieldDistributor", process.env.YIELD_DISTRIBUTOR_ADDRESS, 0) } : {}),
         lisk: getContractConfig(4202, "yieldDistributor", process.env.YIELD_DISTRIBUTOR_ADDRESS_LISK, 0),
         base: getContractConfig(84532, "yieldDistributor", process.env.YIELD_DISTRIBUTOR_ADDRESS_BASE, 35102094),
         optimism: getContractConfig(11155420, "yieldDistributor", process.env.YIELD_DISTRIBUTOR_ADDRESS_OP, 0),
@@ -90,7 +96,7 @@ export default createConfig({
     YIFYLendingPoolV2: {
       abi: YIFYLendingPoolV2Abi,
       chain: {
-        anvil: getContractConfig(31337, "lendingPool", process.env.LENDING_POOL_ADDRESS, 0),
+        ...(isDev ? { anvil: getContractConfig(31337, "lendingPool", process.env.LENDING_POOL_ADDRESS, 0) } : {}),
         lisk: getContractConfig(4202, "lendingPool", process.env.LENDING_POOL_ADDRESS_LISK, 0),
         base: getContractConfig(84532, "lendingPool", process.env.LENDING_POOL_ADDRESS_BASE, 35102094),
         optimism: getContractConfig(11155420, "lendingPool", process.env.LENDING_POOL_ADDRESS_OP, 0),
@@ -100,7 +106,7 @@ export default createConfig({
     UniversalYieldGenerator: {
       abi: UniversalYieldGeneratorAbi,
       chain: {
-        anvil: getContractConfig(31337, "yieldGenerator", process.env.YIELD_GENERATOR_ADDRESS, 0),
+        ...(isDev ? { anvil: getContractConfig(31337, "yieldGenerator", process.env.YIELD_GENERATOR_ADDRESS, 0) } : {}),
         lisk: getContractConfig(4202, "yieldGenerator", process.env.YIELD_GENERATOR_ADDRESS_LISK, 0),
         base: getContractConfig(84532, "yieldGenerator", process.env.YIELD_GENERATOR_ADDRESS_BASE, 35102094),
         optimism: getContractConfig(11155420, "yieldGenerator", process.env.YIELD_GENERATOR_ADDRESS_OP, 0),
