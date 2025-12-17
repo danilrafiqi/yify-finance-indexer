@@ -6,17 +6,14 @@
   "scripts": {
     "dev": "ponder dev",
     "start": "ponder start",
-    "serve": "ponder serve",
     "db": "ponder db",
-    "build": "ponder codegen",
     "codegen": "ponder codegen",
     "lint": "eslint .",
     "typecheck": "tsc"
   },
   "dependencies": {
-    "@envelop/core": "^1.4.0",
+    "ponder": "^0.12.21",
     "hono": "^4.5.0",
-    "ponder": "^0.15.15",
     "viem": "^2.21.3"
   },
   "devDependencies": {
